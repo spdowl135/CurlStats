@@ -1,0 +1,2 @@
+# CurlStats
+Curling Statistics App
