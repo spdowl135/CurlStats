@@ -38,26 +38,23 @@ $(function(){
         $("#noshow, #endscores").toggle();
     });
 });
-
+/*
 $("#pickstone").submit(function(event){
     event.preventDefault();
     $.post( 'http://www.workjar.com/curling/app/stones.php', $("#pickstone").serialize(), function(data){
         $("#therocks").html(data);
     });
 });
-/*
-$("#curlshotsnew").submit(function(event){
-    event.preventDefault();
-    $.post( 'http://www.workjar.com/curling/app/processstones.php', $("#curlshotsnew").serialize(), function(data){
-        $("#therocksnew").html(data);
-    });
-});
 */
-$("#sbmstone").click(function(event){
+$("#pickstone").submit(function(event){
     event.preventDefault();
-    alert("Button was clicked");
- });
-document.getElementById("theperson").innerHTML = person;
+    var endnum = $("#endnum").val();
+    var rocknum = $("#rocknum").val();
+    var sendurl = 'thisstone.html?matchid=' + firstLevel + '&endnum=' + endnum + '&rocknum=' + rocknum;
+    window.location.href = sendurl;
+});
+
+document.getElementById("theperson").innerHTML = firstLevel;
 
 document.getElementById('user_name1').value = person;
 document.getElementById('match_name').value = firstLevel;

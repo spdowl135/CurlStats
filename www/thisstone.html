@@ -21,42 +21,53 @@ function onDeviceReady() {
 var person = window.localStorage.getItem('user_id');
 if (person === null || person.length === 0)
 {
-    
+    window.location = "register.html";
 }
 else
 {
 	//User is logged in!
-	window.location = "index.html";
 }
 $('#topbar').load('http://www.workjar.com/curling/app/topbar.php');
-$('#formsubmit').click(function(){
-var formData = $("#signin").serialize();
- $.ajax({
-	type: 'POST',
-	data: formData,
-	dataType: 'json',
-	url: 'http://www.workjar.com/curling/app/login.php',
-	success: function(res) {
-    if (res.success) {
-      localStorage.setItem('user_id', res.user_id);  //set user id to local storage
-      window.location = "index.html";
-    } else {
-      alert('Email or Password do not match!');
-    }
-  },
-  error: function() {
-    //this will trigger in case the server send invalid JSON (or other types of errors)
-    alert('Error logging in');
-  }
+var newURL = window.location.href;
+var pathArray = window.location.href.split( '=' );
+var secondLevel = pathArray[1];
+var thirdLevel = pathArray[2];
+var fourthLevel = pathArray[3];
+var newarray = secondLevel.split('&',1);
+var secondLevel = thirdLevel.split('&',1);
+var thirdLevel = fourthLevel.split('&',1);
+var loadurl = "http://www.workjar.com/curling/app/stones.php?matchid=" + newarray + "&endnum=" + secondLevel + "&rocknum=" + thirdLevel + "&userid=" + person;
+$('#therocks').load(loadurl);
+
+
+$("#curls").on("submit",function(event){
+    event.preventDefault();
+    $.post( 'http://www.workjar.com/curling/app/processstones.php', $("#curls").serialize(), function(data){
+        $("#theresults").html(data);
     });
-	return false;
 });
-$('#register').click(function() {
-	window.location = "register.html";
+
+
+//document.getElementById("theperson").innerHTML = person;
+
+//document.getElementById('user_name1').value = person;
+//document.getElementById('match_name').value = firstLevel;
+/*
+$('#formmatch').submit(function(event){
+    event.preventDefault();
+    $.post( 'http://www.workjar.com/curling/app/createm.php', $("#formmatch").serialize(), function(data){
+        var url = 'currmatch.html' + '?matchid=' + firstLevel;
+        window.location.href = url;
+    });
+});
+*/
+$('#returntomatch').click(function() {
+        var returnurl = 'currmatch.html' + '?matchid=' + newarray;
+        window.location.href = returnurl;
 });
 $('#remove').click(function() {
 localStorage.removeItem("user_id");
-window.location = "signin.html";
+window.location = "register.html";
 });
 };	
     </script>
@@ -85,18 +96,14 @@ window.location = "signin.html";
 <div class="clear"></div>
 <div id="content">
 	<div class="clear"></div>
-	<br />
-      <form class="form-signin" id="signin" name="signin" method="post">
-        <h2 class="form-signin-heading">Please Sign In</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required autofocus>
-        <button class="btn btn-lg btn-primary btn-block" id="formsubmit" name="formsubmit" type="submit">Sign In</button>
-      </form>
-      <br /><br /><br />
-<button class="btn btn-lg btn-primary btn-block" id = "register" name = "register" class= "formsubmit2">Register</button>
-	<br />
+	<br /><p><a id = "returntomatch">Return to Select Stones</a></p>
+	<div id = "shooting">
+		<form method="post" id="curls" name="curls">
+		<div id  = "therocks"></div>
+		</form>
+		<p><div id = "theresults"></div></p>
+
+</div>
 </div>
 <div class="clear"></div>
 
