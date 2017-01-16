@@ -557,6 +557,22 @@ font-size:12px;}
 .center {
 	text-align: center;
 }
+
+.tanalytics {
+	font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tanalytics td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.tanalytics tr:nth-child(even) {
+    background-color: #dddddd;
+}
 /*Cell Phone Portrait
 @media only screen 
     and (max-device-width: 799px), 
