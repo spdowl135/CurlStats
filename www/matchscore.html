@@ -34,20 +34,12 @@ var firstLevel = pathArray[1];
 var matchform = "http://www.workjar.com/curling/app/thematch.php?matchid=" + firstLevel + "&userid=" + person;
 $('#thematch').load(matchform);
 // Short-form of `document.ready`
-/*
-$("#pickstone").submit(function(event){
+
+$("#formscores").submit(function(event){
     event.preventDefault();
-    $.post( 'http://www.workjar.com/curling/app/stones.php', $("#pickstone").serialize(), function(data){
-        $("#therocks").html(data);
+    $.post( 'http://www.workjar.com/curling/app/postscore.php', $("#formscores").serialize(), function(data){
+        $("#scrupd").html(data);
     });
-});
-*/
-$("#pickstone").submit(function(event){
-    event.preventDefault();
-    var endnum = $("#endnum").val();
-    var rocknum = $("#rocknum").val();
-    var sendurl = 'thisstone.html?matchid=' + firstLevel + '&endnum=' + endnum + '&rocknum=' + rocknum;
-    window.location.href = sendurl;
 });
 
 document.getElementById('user_name1').value = person;
@@ -100,13 +92,15 @@ window.location = "register.html";
 	<br />
 	<button id = "addshots" class="formsubmit">Add Shots</button>
 	<br /><br />
-		<form id = "formscores" class= "smallform" method="post">
+		<form id = "formscores" name="formscores" class= "smallform" method="post">
 				<div id = "thematch"></div>
 			<input type='hidden' name='user_name1' id='user_name1' value=''>
 			<input type='hidden' name='match_name' id='match_name' value=''>
 			<p><input type = "submit" id="updscore" name= "updscore" class="formsubmit" value = "Update Score"></p>
 		</form>
-	
+		<br />
+	<div id = "scrupd"></div>
+	<br /><br />
 </div>
 <div class="clear"></div>
 
