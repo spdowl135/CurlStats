@@ -31,15 +31,9 @@ $('#topbar').load('http://www.workjar.com/curling/app/topbar.php');
 var newURL = window.location.href;
 var pathArray = window.location.href.split( '=' );
 var firstLevel = pathArray[1];
+var matchform = "http://www.workjar.com/curling/app/thematch.php?matchid=" + firstLevel + "&userid=" + person;
+$('#thematch').load(matchform);
 // Short-form of `document.ready`
-/*
-$(function(){
-    $("#endscores").hide();
-    $("#showscore").on("click", function(){
-        $("#noshow, #endscores").toggle();
-    });
-});
-*/
 /*
 $("#pickstone").submit(function(event){
     event.preventDefault();
@@ -56,8 +50,6 @@ $("#pickstone").submit(function(event){
     window.location.href = sendurl;
 });
 
-document.getElementById("theperson").innerHTML = firstLevel;
-
 document.getElementById('user_name1').value = person;
 document.getElementById('match_name').value = firstLevel;
 //document.getElementById("thisuser").innerHTML = localStorage.getItem("user_id");
@@ -70,9 +62,9 @@ $('#formmatch').submit(function(event){
     });
 });
 */
-$('#showscore').click(function() {
-	var sendtheurl = 'matchscore.html?matchid=' + firstLevel;
-    window.location.href = sendtheurl;
+$('#addshots').click(function() {
+	var sendaddurl = 'currmatch.html?matchid=' + firstLevel;
+    window.location.href = sendaddurl;
 });
 $('#remove').click(function() {
 localStorage.removeItem("user_id");
@@ -106,48 +98,15 @@ window.location = "register.html";
 <div id="content">
 	<div class="clear"></div>
 	<br />
-	<button id = "showscore" class="formsubmit">Show Scorecard</button>
-<br /><br />
-	<div id = "shooting">
-		<div id = "rocks">
-		<form method = "post" id="pickstone" name="pickstone">
-		End Number:<br />
-			<select id = "endnum" name="endnum" class="formone">
-			<option value="">End Number</option>
-			<option value ="1" name = "one">1</option>
-			<option value ="2" name = "two">2</option>
-			<option value ="3" name = "three">3</option>
-			<option value="4" name = "four">4</option>
-			<option value="5" name = "five">5</option>
-			<option value="6" name = "six">6</option>
-			<option value="7" name = "seven">7</option>
-			<option value="8" name = "eight">8</option>
-			<option value="9" name = "nine">9</option>
-			<option value="10" name = "ten">10</option>
-			<option value="11" name = "eleven">11</option>
-			</select>
-		<br />
-		Rock Number:<br />
-		<select id = "rocknum" name="rocknum" class="formone">
-			<option value="">Shot Number</option>
-			<option value ="1" name = "one">1</option>
-			<option value ="2" name = "two">2</option>
-			<option value ="3" name = "three">3</option>
-			<option value="4" name = "four">4</option>
-			<option value="5" name = "five">5</option>
-			<option value="6" name = "six">6</option>
-			<option value="7" name = "seven">7</option>
-			<option value="8" name = "eight">8</option>
-			</select>
+	<button id = "addshots" class="formsubmit">Add Shots</button>
+	<br /><br />
+		<form id = "formscores" class= "smallform" method="post">
+				<div id = "thematch"></div>
 			<input type='hidden' name='user_name1' id='user_name1' value=''>
 			<input type='hidden' name='match_name' id='match_name' value=''>
-			<p><input type = "submit" id="sbmcurr" name= "sbmcurr" class="formsubmit" value = "Select Stones"></p>
-			</form>
-			</div>
-			<div id = "theperson"></div>
-		<div id  = "therocks"></div>
-		<div id = "therocksnew"></div>
-</div>
+			<p><input type = "submit" id="updscore" name= "updscore" class="formsubmit" value = "Update Score"></p>
+		</form>
+	
 </div>
 <div class="clear"></div>
 

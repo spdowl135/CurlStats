@@ -28,52 +28,28 @@ else
 	//User is logged in!
 }
 $('#topbar').load('http://www.workjar.com/curling/app/topbar.php');
-var newURL = window.location.href;
-var pathArray = window.location.href.split( '=' );
-var firstLevel = pathArray[1];
-// Short-form of `document.ready`
-/*
-$(function(){
-    $("#endscores").hide();
-    $("#showscore").on("click", function(){
-        $("#noshow, #endscores").toggle();
-    });
-});
-*/
-/*
-$("#pickstone").submit(function(event){
-    event.preventDefault();
-    $.post( 'http://www.workjar.com/curling/app/stones.php', $("#pickstone").serialize(), function(data){
-        $("#therocks").html(data);
-    });
-});
-*/
-$("#pickstone").submit(function(event){
-    event.preventDefault();
-    var endnum = $("#endnum").val();
-    var rocknum = $("#rocknum").val();
-    var sendurl = 'thisstone.html?matchid=' + firstLevel + '&endnum=' + endnum + '&rocknum=' + rocknum;
-    window.location.href = sendurl;
-});
+var main1 = "http://www.workjar.com/curling/app/slctteam.php?thisuser=" + person;
 
-document.getElementById("theperson").innerHTML = firstLevel;
-
+$.ajax({
+    url: main1,
+    dataType: "text",
+    type: "GET",
+    success: function (data){
+         //manually insert the page
+         $("#teamname").html(data);
+    }
+});
 document.getElementById('user_name1').value = person;
-document.getElementById('match_name').value = firstLevel;
 //document.getElementById("thisuser").innerHTML = localStorage.getItem("user_id");
-/*
 $('#formmatch').submit(function(event){
     event.preventDefault();
     $.post( 'http://www.workjar.com/curling/app/createm.php', $("#formmatch").serialize(), function(data){
-        var url = 'currmatch.html' + '?matchid=' + firstLevel;
-        window.location.href = url;
+        var crturl = 'recentmatches.html';
+        window.location.href = crturl;
+        //$("#results").html(data);
     });
 });
-*/
-$('#showscore').click(function() {
-	var sendtheurl = 'matchscore.html?matchid=' + firstLevel;
-    window.location.href = sendtheurl;
-});
+document.getElementById("thisuser").innerHTML = person;
 $('#remove').click(function() {
 localStorage.removeItem("user_id");
 window.location = "register.html";
@@ -106,48 +82,16 @@ window.location = "register.html";
 <div id="content">
 	<div class="clear"></div>
 	<br />
-	<button id = "showscore" class="formsubmit">Show Scorecard</button>
-<br /><br />
-	<div id = "shooting">
-		<div id = "rocks">
-		<form method = "post" id="pickstone" name="pickstone">
-		End Number:<br />
-			<select id = "endnum" name="endnum" class="formone">
-			<option value="">End Number</option>
-			<option value ="1" name = "one">1</option>
-			<option value ="2" name = "two">2</option>
-			<option value ="3" name = "three">3</option>
-			<option value="4" name = "four">4</option>
-			<option value="5" name = "five">5</option>
-			<option value="6" name = "six">6</option>
-			<option value="7" name = "seven">7</option>
-			<option value="8" name = "eight">8</option>
-			<option value="9" name = "nine">9</option>
-			<option value="10" name = "ten">10</option>
-			<option value="11" name = "eleven">11</option>
-			</select>
-		<br />
-		Rock Number:<br />
-		<select id = "rocknum" name="rocknum" class="formone">
-			<option value="">Shot Number</option>
-			<option value ="1" name = "one">1</option>
-			<option value ="2" name = "two">2</option>
-			<option value ="3" name = "three">3</option>
-			<option value="4" name = "four">4</option>
-			<option value="5" name = "five">5</option>
-			<option value="6" name = "six">6</option>
-			<option value="7" name = "seven">7</option>
-			<option value="8" name = "eight">8</option>
-			</select>
-			<input type='hidden' name='user_name1' id='user_name1' value=''>
-			<input type='hidden' name='match_name' id='match_name' value=''>
-			<p><input type = "submit" id="sbmcurr" name= "sbmcurr" class="formsubmit" value = "Select Stones"></p>
-			</form>
-			</div>
-			<div id = "theperson"></div>
-		<div id  = "therocks"></div>
-		<div id = "therocksnew"></div>
-</div>
+<form id="formmatch" name="formmatch" class="formone" method="post">
+Select Team: 
+<select name="teamname" id="teamname" class="formdrop" /><br />
+<input type='hidden' name='user_name1' id='user_name1' value=''>
+<br />
+<p><input type = "submit" id="crmatch" name= "crmatch" class="formsubmit" value = "Create Match"></p>
+	<br />
+</form>
+	<div id = "results"></div>
+	<div id = "thisuser"></div>
 </div>
 <div class="clear"></div>
 
