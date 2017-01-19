@@ -585,6 +585,14 @@ font-size:12px;}
     text-align: left;
     padding: 10px;
 }
+
+.scoretable input {
+    background: white;   
+    text-align: left;
+    padding: 5px;
+    font-size: 15px;
+}
+
 /*Cell Phone Portrait
 @media only screen 
     and (max-device-width: 799px), 
